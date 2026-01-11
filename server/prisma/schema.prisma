@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Camera {
+  id          String   @id @default(uuid())
+  name        String
+  rtspUrl     String
+  onvifUrl    String?
+  username    String?
+  password    String?
+  enabled     Boolean  @default(true)
+  status      String   @default("offline") // online, offline, error
+  recordMode  String   @default("continuous") // continuous, event, none
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  recordings  Recording[]
+}
+
+model Recording {
+  id          String   @id @default(uuid())
+  cameraId    String
+  camera      Camera   @relation(fields: [cameraId], references: [id])
+  filename    String
+  path        String
+  startTime   DateTime
+  endTime     DateTime?
+  size        BigInt?
+  status      String   @default("recording") // recording, completed, error
+  createdAt   DateTime @default(now())
+}
+
+model Setting {
+  id          String   @id @default("system")
+  storagePath String   @default("./recordings")
+  retentionGb Int      @default(200) // 80% of 250GB approx
+  cleanThreshold Int   @default(80)  // %
+  targetThreshold Int  @default(70)  // %
+  nodeName    String   @default("RPI-NODE-01")
+  updatedAt   DateTime @updatedAt
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  type        String   // motion, line_cross, system, error
+  severity    String   // critical, high, medium, low
+  message     String
+  cameraId    String?
+  createdAt   DateTime @default(now())
+}

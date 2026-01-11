@@ -1,0 +1,17 @@
+{
+    "name": "nvr-design",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+        "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+        "dev:server": "cd server && npm run dev",
+        "dev:client": "cd client && npm run dev",
+        "start": "cd server && npm run start",
+        "start:server": "cd server && npm run start",
+        "start:client": "echo 'Client is served by server in production'"
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1"
+    }
+}

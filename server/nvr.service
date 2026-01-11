@@ -1,0 +1,18 @@
+[Unit]
+Description=Antigravity NVR Backend
+After=network.target
+
+[Service]
+Type=simple
+User=sandhanapandiyan
+WorkingDirectory=/home/sandhanapandiyan/Documents/new nvr design/server
+ExecStart=/usr/bin/npm start
+Restart=on-failure
+RestartSec=10
+Environment=PORT=3001
+Environment=DATABASE_URL="file:/home/sandhanapandiyan/Documents/new nvr design/server/config/nvr.db"
+# Increase open file limit for many streams
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
