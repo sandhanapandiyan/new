@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+
+
+# Production/Build
+dist/
+build/
+*.tsbuildinfo
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+server/config/*.db
+server/config/*.db-journal
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime Data
+server/recordings/
+exports/
+server/go2rtc
+
+# OS & IDE
+.DS_Store
+.idea/
+.vscode/
+
+# Temporary Scripts
+add_cameras_temp.ts
+server/add_cams.js
+server/delete_recordings.js
